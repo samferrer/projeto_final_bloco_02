@@ -20,6 +20,14 @@ export class CategoriaService {
     return this.categoriaRepository.findOneBy({ id });
   }
 
+  findByNome(nome: string) {
+  return this.categoriaRepository.find({
+    where: {
+      nome: nome
+    }
+  });
+  }
+
   create(categoria: Categoria) {
     return this.categoriaRepository.save(categoria);
   }
