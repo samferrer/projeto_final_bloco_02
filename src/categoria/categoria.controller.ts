@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
 import { CategoriaService } from './categoria.service';
 import { Categoria } from './entities/categoria.entity';
 
@@ -14,11 +14,11 @@ export class CategoriaController {
 
   @Get('nome/:nome')
   findByNome(@Param('nome') nome: string) {
-  return this.categoriaService.findByNome(nome);
+    return this.categoriaService.findByNome(nome);
   }
 
   @Get('/:id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.categoriaService.findOne(id);
   }
 
@@ -28,12 +28,12 @@ export class CategoriaController {
   }
 
   @Put('/:id')
-  update(@Param('id') id: number, @Body() categoria: Categoria) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() categoria: Categoria) {
     return this.categoriaService.update(id, categoria);
   }
 
   @Delete('/:id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.categoriaService.remove(id);
   }
 }

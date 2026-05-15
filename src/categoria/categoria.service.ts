@@ -38,10 +38,15 @@ export class CategoriaService {
   }
 
   async update(id: number, categoria: Categoria) {
-    await this.findOne(id);
-    categoria.id = id;
-    return this.categoriaRepository.save(categoria);
-  }
+  await this.findOne(id);
+
+  await this.categoriaRepository.update(id, {
+    nome: categoria.nome,
+    descricao: categoria.descricao,
+  });
+
+  return this.findOne(id);
+}
 
   async remove(id: number) {
     await this.findOne(id);
